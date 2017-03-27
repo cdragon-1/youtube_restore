@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+	<div class="bookmark-list-container">
+		<ul class="video-list">
+			{% for bookmark in bookmarks %}
+			<li class="video-item">
+				<img src="{{ bookmark.video.url_thumbnail }}" alt="" class="item-thumbnail">
+				<div class="item-content">
+					<div class="vcenter ellipsis">
+						<a href="" class="item-title">{{ bookmark.video.title }}</a>
+						<p class="item-desc">{{ bookmark.video.description }}</p>
+						<p class="item-date">게시일자 : {{ bookmark.video.published_date }}</p>
+						<p class="item-date">북마크일자 : {{ bookmark.created_date }}</p>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+
+		<div class="paginator">
+			{% if bookmarks.has_previous %}
+				<a href="?page={{ bookmarks.previous_page_number }}" class="btn btn-pagination">Prev</a>
+			{% endif %}
+
+			<span>
+				Page {{ bookmarks.number }} of {{ bookmarks.paginator.num_pages }}
+			</span>
+
+			{% if bookmarks.has_next %}
+				<a href="?page={{ bookmarks.next_page_number }}" class="btn btn-pagination">Next</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
